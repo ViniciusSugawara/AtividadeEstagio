@@ -2,8 +2,8 @@ package jogos;
 
 public abstract class Jogo {
     // Classe que representa os jogos fornecidos em uma loteria.
-    private int quantiaNumeros;
-    private int limite;
+    private int quantidadeNumeros;
+    private int numeroMaximo;
     private boolean escolheNumeros;
 
     public boolean isEscolheNumeros() {
@@ -13,18 +13,18 @@ public abstract class Jogo {
         this.escolheNumeros = escolheNumeros;
     }
 
-    protected void setQuantiaNumeros(int quantiaNumeros){
-        this.quantiaNumeros = quantiaNumeros;
+    protected void setQuantidadeNumeros(int quantidadeNumeros){
+        this.quantidadeNumeros = quantidadeNumeros;
     }
-    public int getQuantiaNumeros(){
-        return quantiaNumeros;
-    }
-
-    public int getLimite() {
-        return limite;
+    public int getQuantidadeNumeros(){
+        return quantidadeNumeros;
     }
 
-    protected void setLimite(int limite) {
-        this.limite = limite;
+    public int getNumeroMaximo() {
+        return numeroMaximo;
+    }
+
+    protected void setNumeroMaximo(int numeroMaximo) {
+        this.numeroMaximo = numeroMaximo;
     }
 }

@@ -1,15 +1,11 @@
-package loteria;
+package dominio;
 
 public class Bilhete {
     private int[] numeros;
 
-    public Bilhete(){
-    }
-
     public int[] getNumeros() {
         return numeros;
     }
-
     public void setNumeros(int[] numeros) {
         this.numeros = numeros;
     }

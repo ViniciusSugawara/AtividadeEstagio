@@ -1,18 +1,16 @@
-package loteria;
+package dominio;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Participante {
     private String nome;
     private List<Bilhete> bilhetes;
-    private int numeroBilhetes;
+    private int quantidadeBilhetes;
     
-    public Participante(String nome, int numeroBilhetes){
+    public Participante(String nome, int quantidadeBilhetes){
         this.nome = nome;
         bilhetes = new ArrayList<>();
-        for(int i = 0; i < numeroBilhetes; i++){
-            bilhetes.add(new Bilhete());
-        }
+        addBilhetes();
     }
     
     public String getNome() {
@@ -28,4 +26,11 @@ public class Participante {
     public void setBilhetes(List<Bilhete> bilhete) {
         this.bilhetes = bilhete;
     }
+
+    private void addBilhetes(){
+        for(int i = 0; i < quantidadeBilhetes; i++){
+            bilhetes.add(new Bilhete());
+        }
+    }
+
 }

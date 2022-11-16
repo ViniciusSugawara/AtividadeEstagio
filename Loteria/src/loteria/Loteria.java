@@ -1,27 +1,39 @@
 package loteria;
+import controllers.BilheteController;
+import dominio.Bilhete;
+import dominio.Participante;
 import jogos.Jogo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 public class Loteria {
     // Classe que realiza a interação entre as classes, como um Mediator.
     private List<Participante> participantes;
-    private Participante vencedor = null;
-    private Bilhete bilheteVencedor = null;
+    private List<Bilhete> bilhetes;
+    private Map<Participante, List<Bilhete>> mapaBilhetes;
     private Jogo jogo;
     private Sorteio sorteio;
-    int[] resultado;
-    double premio = 0;
+    private int[] resultado;
+    private double premio = 0;
+    private Verificador verificador;
+    private BilheteController bilheteController;
     public Loteria(Jogo jogo, Participante... participantes){
         this.jogo = jogo;
-        this.resultado = new int[jogo.getQuantiaNumeros()];
-        this.sorteio = new Sorteio(jogo.getQuantiaNumeros(), jogo.getLimite());
+        this.sorteio = new Sorteio(jogo.getQuantidadeNumeros(), jogo.getNumeroMaximo());
+        this.bilheteController = new BilheteController();
         this.participantes = new ArrayList();
+        this.bilhetes = new ArrayList();
+        this.mapaBilhetes = new HashMap<>();
 
         for(Participante participante : participantes){
+            preencheMapa(participante);
             this.participantes.add(participante);
-            this.premio += 6;
+            calculaPremio();
         }
+
     }
 
     public List<Participante> getParticipantes() {
@@ -31,44 +43,72 @@ public class Loteria {
         this.participantes.add(participante);
     }
 
-    private void preencheBilhete(){
-        int[] numerosParaPreencher = new int[jogo.getQuantiaNumeros()];
+    public List<Bilhete> getBilhetes(){
         for(Participante participante : participantes){
             for(Bilhete bilhete : participante.getBilhetes()){
-                System.out.println("Jogador " + participante.getNome() + ", Insira os numeros para aposta: ");
-                for(int i = 0; i < numerosParaPreencher.length; i++){
-                    System.out.println(i + 1 + "o numero");
-                    numerosParaPreencher[i] = EntradaDados.retornaNumero();
-                }
-                bilhete.setNumeros(numerosParaPreencher);
+                bilhetes.add(bilhete);
+            }
+        }
+        return bilhetes;
+    }
+
+    private void calculaPremio(){
+        for(int i = 0; i < bilhetes.size(); i++)
+            this.premio += 6;
+    }
+
+    private void preencheMapa(Participante participante){
+        this.mapaBilhetes.put(participante, participante.getBilhetes());
+    }
+
+    private void preencheBilheteManualmente(){
+        for(Bilhete bilhete : bilhetes){
+            bilhete = bilheteController.preencheBilhete(bilhete, jogo.getQuantidadeNumeros());
+        }
+    }
+
+    private void preencheBilheteAutomaticamente() {
+        for (Participante participante : participantes) {
+            for (Bilhete bilhete : participante.getBilhetes()) {
+                sorteio.realizaSorteio();
+                bilhete.setNumeros(sorteio.getNumerosSorteados());
             }
         }
     }
 
-    private boolean verificaVencedor(){
-        for(Participante participante : participantes){
-            for(Bilhete bilhete : participante.getBilhetes()){
-                if(resultado.equals(bilhete.getNumeros())){
-                    vencedor = participante;
-                    bilheteVencedor = bilhete;
-                    return true;
-                }
-            }
+    private String mostraBilhetes(){
+        String numerosApostados = "";
+        for(Bilhete bilhete : bilhetes){
+            numerosApostados += bilhete.retornaNumeros();
         }
-        return false;
+        return numerosApostados;
+    }
+
+    public void execucaoTeste(){
+        sorteio.realizaSorteio();
+        System.out.println(sorteio.retornaNumerosSorteados());
+        System.out.println(mostraBilhetes());
     }
 
     public void execucao(){
         if(jogo.isEscolheNumeros()){
-            preencheBilhete();
+            preencheBilheteManualmente();
+        } else {
+            System.out.println("Entrou no metodo certo");
+            preencheBilheteAutomaticamente();
         }
-        resultado = sorteio.realizaSorteio();
-        if(verificaVencedor()) {
-            System.out.println("O vencedor foi " + vencedor.getNome());
-            System.out.println("Com os numeros: " + bilheteVencedor.retornaNumeros());
+        sorteio.realizaSorteio();
+        resultado = sorteio.getNumerosSorteados();
+
+        this.verificador = new Verificador(resultado, this.participantes);
+
+        if(verificador.verificaVencedor() != null) {
+            System.out.println("O vencedor foi " + verificador.verificaVencedor().getNome());
+            System.out.println("Com os numeros: " + resultado);
             System.out.println("Com a premiacao de " + premio);
         } else {
             System.out.println("Ninguem venceu");
         }
+        System.out.println("Os numeros foram " + mostraBilhetes());
     }
 }

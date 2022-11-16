@@ -2,8 +2,8 @@ package jogos;
 
 public class Federal extends Jogo{
     public Federal(){
-        setQuantiaNumeros(5);
-        setLimite(99);
+        setQuantidadeNumeros(5);
+        setNumeroMaximo(99);
         setEscolheNumeros(false);
     }
 }
