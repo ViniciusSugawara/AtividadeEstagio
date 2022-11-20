@@ -1,4 +1,4 @@
-package loteria;
+package utilidades;
 
 import dominio.Bilhete;
 import dominio.Participante;
@@ -6,15 +6,15 @@ import dominio.Participante;
 import java.util.List;
 
 public class Verificador {
-    private static int[] resultado;
-    private static List<Participante> participantes;
+    private int[] resultado;
+    private List<Participante> participantes;
 
     public Verificador(int[] resultado, List<Participante> participantes){
         this.resultado = resultado;
         this.participantes = participantes;
     }
 
-    public static Participante verificaVencedor(){
+    public Participante verificaVencedor(){
         Participante vencedor = null;
         for(Participante participante : participantes){
             for(Bilhete bilhete : participante.getBilhetes()){

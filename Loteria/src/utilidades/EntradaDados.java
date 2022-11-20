@@ -1,4 +1,4 @@
-package io;
+package utilidades;
 import java.util.Scanner;
 public class EntradaDados {
     private final static Scanner scan = new Scanner(System.in);

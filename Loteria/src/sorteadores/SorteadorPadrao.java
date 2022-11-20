@@ -1,17 +1,17 @@
-package loteria;
+package sorteadores;
 import java.util.Random;
 
-public class Sorteio {
-    // Classe que cuida exclusivamente do retorno de numeros
+public class SorteadorPadrao implements Sorteador {
     private int[] numerosSorteados;
-    private int numeroMaximo;
+    private int valorMaximo;
     private Random rand = new Random();
 
-    public Sorteio(int quantiaNumerosSorteados, int numeroMaximo){
+    public SorteadorPadrao(int quantiaNumerosSorteados, int valorMaximo){
         this.numerosSorteados = new int[quantiaNumerosSorteados];
-        this.numeroMaximo = numeroMaximo;
+        this.valorMaximo = valorMaximo;
     }
-    
+
+
     private boolean verificaRepeticao(int numero){
         for(int i = 0; i < numerosSorteados.length; i++){
             if(numerosSorteados[i] == numero){
@@ -20,17 +20,16 @@ public class Sorteio {
         }
         return false;
     }
-    
+    @Override
     public void realizaSorteio(){
         int i = 0;
         do{
-            int numero = rand.nextInt(numeroMaximo);
+            int numero = rand.nextInt(valorMaximo);
             if(!verificaRepeticao(numero)){
                 numerosSorteados[i] = numero;
                 i++;
             }
         } while (i < numerosSorteados.length);
-        System.out.println(numerosSorteados[i - 1]);
     }
 
     public int[] getNumerosSorteados(){

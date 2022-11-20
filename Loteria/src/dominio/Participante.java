@@ -1,5 +1,4 @@
 package dominio;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Participante {
@@ -9,8 +8,7 @@ public class Participante {
     
     public Participante(String nome, int quantidadeBilhetes){
         this.nome = nome;
-        bilhetes = new ArrayList<>();
-        addBilhetes();
+        this.quantidadeBilhetes = quantidadeBilhetes;
     }
     
     public String getNome() {
@@ -23,14 +21,8 @@ public class Participante {
     public List<Bilhete> getBilhetes() {
         return bilhetes;
     }
-    public void setBilhetes(List<Bilhete> bilhete) {
-        this.bilhetes = bilhete;
-    }
+    public void setBilhetes(List<Bilhete> bilhete) { this.bilhetes = bilhete; }
 
-    private void addBilhetes(){
-        for(int i = 0; i < quantidadeBilhetes; i++){
-            bilhetes.add(new Bilhete());
-        }
-    }
-
+    public int getQuantidadeBilhetes() { return quantidadeBilhetes; }
+    public void setQuantidadeBilhetes(int quantidadeBilhetes) { this.quantidadeBilhetes = quantidadeBilhetes; }
 }

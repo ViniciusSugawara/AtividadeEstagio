@@ -1,17 +1,27 @@
 package controllers;
 
 import dominio.Bilhete;
-import io.EntradaDados;
+import utilidades.EntradaDados;
+import sorteadores.Sorteador;
+
+import java.util.List;
 
 public class BilheteController {
-    public Bilhete preencheBilhete(Bilhete bilhete, int quantidadeNumeros){
+    public void preencheBilheteManualmente(List<Bilhete> bilhetes, int quantidadeNumeros){
         int[] numerosParaPreencher = new int[quantidadeNumeros];
-        for(int i = 0; i < numerosParaPreencher.length; i++){
-            System.out.println(i + 1 + "o numero");
-            numerosParaPreencher[i] = EntradaDados.retornaNumero();
+
+        for(Bilhete bilhete: bilhetes) {
+            for (int i = 0; i < quantidadeNumeros; i++) {
+                System.out.println(i + 1 + "o numero");
+                numerosParaPreencher[i] = EntradaDados.retornaNumero();
+            }
+            bilhete.setNumeros(numerosParaPreencher);
         }
-        bilhete.setNumeros(numerosParaPreencher);
-        return bilhete;
     }
 
+    public void preencheBilheteAutomaticamente(List<Bilhete> bilhetes, Sorteador sorteador){
+        sorteador.realizaSorteio();
+        for(Bilhete bilhete : bilhetes)
+        bilhete.setNumeros(sorteador.getNumerosSorteados());
+    }
 }

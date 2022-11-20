@@ -9,6 +9,8 @@ public class SimpleJogoFactory {
             jogo = new MegaSena();
         } else if (nomeJogo.toLowerCase().equals("federal simplificada")){
             jogo = new FederalSimplificada();
+        } else if (nomeJogo.toLowerCase().equals("megasena simplificada")){
+            jogo = new MegaSenaSimplificada();
         }
         return jogo;
     }
