@@ -14,8 +14,8 @@ public class BilheteController {
             for (int i = 0; i < quantidadeNumeros; i++) {
                 System.out.println(i + 1 + "o numero");
                 numerosParaPreencher[i] = EntradaDados.retornaNumero();
+                bilhete.setNumeros(numerosParaPreencher);
             }
-            bilhete.setNumeros(numerosParaPreencher);
         }
     }
 

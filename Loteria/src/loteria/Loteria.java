@@ -1,4 +1,4 @@
-package io;
+package loteria;
 import controllers.BilheteController;
 import controllers.ParticipanteController;
 import dominio.Bilhete;
@@ -7,52 +7,46 @@ import jogos.Jogo;
 import utilidades.Verificador;
 import sorteadores.Sorteador;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Loteria {
-    private List<Participante> participantes;
-    private List<Bilhete> bilhetes;
-    private Jogo jogo;
+    private LoteriaModel loteriaModelo = new LoteriaModel();
     private Sorteador sorteador;
-    private int[] resultadoSorteado;
-    private double premio = 0;
     private Verificador verificador;
+    private final Premio premiacao;
     private BilheteController bilheteController;
     private ParticipanteController participanteController;
     public Loteria(Jogo jogo, Sorteador sorteador, Participante... participantes){
-        this.jogo = jogo;
+        loteriaModelo.setJogo(jogo);
         this.sorteador = sorteador;
-        this.participantes = new ArrayList();
         this.participanteController = new ParticipanteController();
+        this.premiacao = new Premio();
 
         for(Participante participante : participantes){
             participante.setBilhetes(
                     participanteController.adicionaBilhetes(participante.getQuantidadeBilhetes()));
-            this.participantes.add(participante);
-            this.premio += 6 * participante.getQuantidadeBilhetes();
+            this.loteriaModelo.adicionaParticipantes(participante);
+            this.premiacao.calculaPremioTotal(6, participante.getQuantidadeBilhetes());
         }
     }
 
-    public List<Bilhete> getBilhetes() {
-        for (Participante participante : participantes) {
-            for (Bilhete bilhete : participante.getBilhetes()) {
-                bilhetes.add(bilhete);
-            }
-        }
-        return bilhetes;
-    }
+//    public List<Bilhete> getBilhetes() {
+//        for (Participante participante : loteriaModelo.getParticipantes()) {
+//            for (Bilhete bilhete : participante.getBilhetes()) {
+//                bilhetes.add(bilhete);
+//            }
+//        }
+//        return bilhetes;
+//    }
 
     private void preencheBilheteManualmente(){
-        for(Participante participante : participantes){
+        for(Participante participante : loteriaModelo.getParticipantes()){
             System.out.println("Jogador " + participante.getNome() + ", ");
             bilheteController.preencheBilheteManualmente(
-                    participante.getBilhetes(), jogo.getQuantidadeNumeros());
+                    participante.getBilhetes(), loteriaModelo.getJogo().getQuantidadeNumeros());
         }
     }
 
     private void preencheBilheteAutomaticamente() {
-        for (Participante participante : participantes) {
+        for (Participante participante : loteriaModelo.getParticipantes()) {
             bilheteController.preencheBilheteAutomaticamente(
                     participante.getBilhetes(), sorteador);
         }
@@ -60,7 +54,7 @@ public class Loteria {
 
     private String mostraBilhetes(){
         String apostas = "";
-        for(Participante participante : participantes){
+        for(Participante participante : loteriaModelo.getParticipantes()){
             apostas += "Jogador " + participante.getNome() + " com os numeros ";
             for(Bilhete bilhete : participante.getBilhetes()) {
                 apostas += bilhete.retornaNumeros() + ", ";
@@ -71,38 +65,40 @@ public class Loteria {
 
     private String mostraResultadoSorteado(){
         String resultado = "";
-        for(int numero : this.resultadoSorteado){
+        for(int numero : loteriaModelo.getResultadoSorteado()){
             resultado += numero + ", ";
         }
         return resultado;
     }
 
-    public void execucaoTeste(){
-        sorteador.realizaSorteio();
-        System.out.println(sorteador.retornaNumerosSorteados());
-        System.out.println(mostraBilhetes());
+    public String executaDemonstracaoResultados(){
+        String mensagem = "";
+        mensagem += "\nNumeros sorteados foram: " + sorteador.retornaNumerosSorteados();
+        mensagem += "\nNumeros apostados foram: " + mostraBilhetes();
+
+        return mensagem;
     }
 
-    public void execucao(){
+    public String executaJogo(){
+        String mensagem = "";
         this.bilheteController = new BilheteController();
-        if(jogo.isJogadorEscolheNumeros()){
+        if(loteriaModelo.getJogo().isJogadorEscolheNumeros()){
             preencheBilheteManualmente();
         } else {
             preencheBilheteAutomaticamente();
         }
         sorteador.realizaSorteio();
-        resultadoSorteado = sorteador.getNumerosSorteados();
+        loteriaModelo.setResultadoSorteado(sorteador.getNumerosSorteados());
 
-        this.verificador = new Verificador(resultadoSorteado, this.participantes);
+        this.verificador = new Verificador(loteriaModelo.getResultadoSorteado(), loteriaModelo.getParticipantes());
 
         if(verificador.verificaVencedor() != null) {
-            System.out.println("O vencedor foi " + verificador.verificaVencedor().getNome());
-            System.out.println("Com os numeros: " + mostraResultadoSorteado());
-            System.out.println("Com a premiacao de " + premio);
+            mensagem += "O vencedor foi " + verificador.verificaVencedor().getNome();
+            mensagem += "\nCom os numeros: " + mostraResultadoSorteado();
+            mensagem += "\nCom a premiacao de " + premiacao.getPremioTotal();
+            return mensagem;
         } else {
-            System.out.println("Ninguem venceu");
+            return "Ninguem venceu";
         }
-        System.out.println("Os numeros apostados foram " + mostraBilhetes());
-        System.out.println("Os numeros sorteados foram " + sorteador.retornaNumerosSorteados());
     }
 }

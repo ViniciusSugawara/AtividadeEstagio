@@ -8,9 +8,7 @@ public abstract class Jogo {
     public boolean isJogadorEscolheNumeros() {
         return jogadorEscolheNumeros;
     }
-    protected void setJogadorEscolheNumeros(boolean jogadorEscolheNumeros) {
-        this.jogadorEscolheNumeros = jogadorEscolheNumeros;
-    }
+    protected void setJogadorEscolheNumeros(boolean jogadorEscolheNumeros) { this.jogadorEscolheNumeros = jogadorEscolheNumeros; }
 
     public int getQuantidadeNumeros(){
         return quantidadeNumeros;
