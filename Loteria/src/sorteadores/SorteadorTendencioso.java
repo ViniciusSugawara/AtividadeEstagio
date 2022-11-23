@@ -1,6 +1,6 @@
 package sorteadores;
 
-public class SorteadorTendencioso implements Sorteador {
+public class SorteadorTendencioso implements ISorteador {
     private int[] numerosSorteados;
     private int valorMaximo;
 

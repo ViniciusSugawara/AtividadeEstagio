@@ -3,6 +3,7 @@ package io;
 import controllers.LoteriaController;
 
 public class LoteriaView {
+    // Demonstra resultados das execucoes dos metodos da loteriaController
     private LoteriaController loteriaController;
 
     public LoteriaView(LoteriaController loteriaController) {

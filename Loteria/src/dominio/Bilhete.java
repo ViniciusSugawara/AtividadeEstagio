@@ -1,6 +1,7 @@
 package dominio;
 
 public class Bilhete {
+    //Classe de dominio do bilhete
     private int[] numeros;
 
     public int[] getNumeros() {
@@ -11,9 +12,9 @@ public class Bilhete {
     }
     public String retornaNumeros(){
         String numerosBilhete = "";
-        for(int numero : numeros){
+        for(int numero : this.numeros){
             numerosBilhete += numero + ", ";
         }
-        return numerosBilhete;
+        return numerosBilhete.substring(0, numerosBilhete.length() - 2);
     }
 }

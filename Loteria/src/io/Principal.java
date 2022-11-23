@@ -9,19 +9,19 @@ public class Principal {
     public static void main(String[] args) {
         SimpleJogoFactory jogoFactory = new SimpleJogoFactory();
 
-        Jogo primeiroJogo = jogoFactory.criaJogo("federal");
-        Jogo segundoJogo = jogoFactory.criaJogo("megasena");
-        Jogo terceiroJogo = jogoFactory.criaJogo("federal simplificada");
-        Jogo quartoJogo = jogoFactory.criaJogo("megasena simplificada");
+        JogoAbs primeiroJogoAbs = jogoFactory.criaJogo("federal");
+        JogoAbs segundoJogoAbs = jogoFactory.criaJogo("megasena");
+        JogoAbs terceiroJogoAbs = jogoFactory.criaJogo("federal simplificada");
+        JogoAbs quartoJogoAbs = jogoFactory.criaJogo("megasena simplificada");
 
         Participante p1 = new Participante("Jonas", 1);
         Participante p2 = new Participante("Viana", 3);
 
-            Sorteador sorteio = new SorteadorTendencioso(quartoJogo.getQuantidadeNumeros(), quartoJogo.getValorMaximo());
-        Sorteador sorteioDois = new SorteadorPadrao(quartoJogo.getQuantidadeNumeros(), quartoJogo.getValorMaximo());
+            ISorteador sorteio = new SorteadorTendencioso(quartoJogoAbs.getQuantidadeNumeros(), quartoJogoAbs.getValorMaximo());
+        ISorteador sorteioDois = new SorteadorPadrao(quartoJogoAbs.getQuantidadeNumeros(), quartoJogoAbs.getValorMaximo());
 //
-        LoteriaController loteriaController = new LoteriaController(quartoJogo,
-                                        sorteio,
+        LoteriaController loteriaController = new LoteriaController(quartoJogoAbs,
+                                        sorteioDois,
                                         p1, p2);
 
         LoteriaView loteriaView = new LoteriaView(loteriaController);

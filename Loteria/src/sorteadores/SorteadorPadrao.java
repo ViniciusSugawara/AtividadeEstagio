@@ -1,7 +1,7 @@
 package sorteadores;
 import java.util.Random;
 
-public class SorteadorPadrao implements Sorteador {
+public class SorteadorPadrao implements ISorteador {
     private int[] numerosSorteados;
     private int valorMaximo;
     private Random rand = new Random();
@@ -10,7 +10,6 @@ public class SorteadorPadrao implements Sorteador {
         this.numerosSorteados = new int[quantiaNumerosSorteados];
         this.valorMaximo = valorMaximo;
     }
-
 
     private boolean verificaRepeticao(int numero){
         for(int i = 0; i < numerosSorteados.length; i++){
