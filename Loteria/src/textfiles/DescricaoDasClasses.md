@@ -12,6 +12,7 @@
 
 ### Jogos: Pacote com classes referente aos jogos.
 #### Jogo: Classe abstrata que representa o jogoAbs a ser executado. Possui:
+
 * MegaSena: Jogo onde o usuário escolhe os números para jogar.
 * MegaSenaSimplificada: Jogo similar a mega sena, porém com apenas um número a ser apostado.	
 * Federal: Jogo onde o usuário recebe um bilhete com números pré definidos.
@@ -20,6 +21,7 @@
 
 ### Sorteadores: Pacote com classes que sorteiam valores
 #### Sorteador: Interface que representa algum tipo de ISorteador, dentre estes:
+
 * SorteadorPadrao: Possui a lógica para sortear um número e retornar um array, baseado em valores como o valor máximo e a quantia de números a ser sorteado.
 * SorteadorTendencioso: Possui a lógica para retornar sempre o mesmo resultado, independente do valor máximo e a quantia de números.
 	
@@ -29,3 +31,4 @@
 ### Utilidades: Pacote com classes que realizam alguma tarefa de maneira mais genérica
 * Verificador: Classe responsável pela verificação de condições dos métodos.
 * EntradaDados: Classe estática que cuida dos métodos para receber dados.
+
