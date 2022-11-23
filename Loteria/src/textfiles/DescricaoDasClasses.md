@@ -3,10 +3,12 @@
 ### Domínio: Pacote com classes POJO (Plain Old Java Objects, classes com apenas Getters e Setters)
 * Participante: Representa o jogador, com informações como Nome, quantidade de apostas e uma lista das apostas do mesmo.
 * Bilhete: Representa a aposta do jogador. Tem apenas um array de tamanho a ser definido, que representa os números apostados.
- 
+* Loteria: Representa a loteria, como uma casa lotérica. Possui lista de participantes e bilhetes, um tipo de jogo, e um array com o sorteio.
+
 ### Controllers: Pacote com classes que seguem o padrão Controller, referente ao MVC (Model View Controller).
 * ParticipanteController: Cuida da manipulação de dados de Participante
 * BilheteController: Cuida da manipulação de dados de Bilhete
+* LoteriaController: Cuida da manipulação de dados de Loteria e da lógica do funcionamento do sorteio.
 
 ### Jogos: Pacote com classes referente aos jogos.
 #### Jogo: Classe abstrata que representa o jogo a ser executado. Possui:
@@ -22,10 +24,6 @@
 * SorteadorTendencioso: Possui a lógica para retornar sempre o mesmo resultado, independente do valor máximo e a quantia de números.
 	
 ### IO: Pacote com classes que demonstram e recebem valores.
-
-###Loteria
-* Loteria: Classe responsável pelo controle da premiação e da interação do participante com o sorteio.
-* LoteriaModel: Classe que demonstra apenas os dados da loteriaController, como uma POJO
 * LoteriaView: Classe que recebe uma loteriaController e se responsabiliza por demonstrar apenas as solicitações de um determinado cliente
 	
 ### Utilidades: Pacote com classes que realizam alguma tarefa de maneira mais genérica
