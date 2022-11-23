@@ -1,20 +1,20 @@
-package loteria;
-import controllers.BilheteController;
-import controllers.ParticipanteController;
+package controllers;
 import dominio.Bilhete;
+import dominio.Loteria;
 import dominio.Participante;
 import jogos.Jogo;
+import dominio.Premio;
 import utilidades.Verificador;
 import sorteadores.Sorteador;
 
-public class Loteria {
-    private LoteriaModel loteriaModelo = new LoteriaModel();
+public class LoteriaController {
+    private Loteria loteriaModelo = new Loteria();
     private Sorteador sorteador;
     private Verificador verificador;
     private final Premio premiacao;
     private BilheteController bilheteController;
     private ParticipanteController participanteController;
-    public Loteria(Jogo jogo, Sorteador sorteador, Participante... participantes){
+    public LoteriaController(Jogo jogo, Sorteador sorteador, Participante... participantes){
         loteriaModelo.setJogo(jogo);
         this.sorteador = sorteador;
         this.participanteController = new ParticipanteController();

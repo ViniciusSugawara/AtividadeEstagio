@@ -1,13 +1,11 @@
-package loteria;
+package dominio;
 
-import dominio.Bilhete;
-import dominio.Participante;
 import jogos.Jogo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoteriaModel {
+public class Loteria {
     private List<Participante> participantes;
     private List<Bilhete> bilhetes;
     private Jogo jogo;
@@ -15,7 +13,7 @@ public class LoteriaModel {
     private double premio = 0;
 
 
-    public LoteriaModel(){
+    public Loteria(){
         this.participantes = new ArrayList<>();
 
     }

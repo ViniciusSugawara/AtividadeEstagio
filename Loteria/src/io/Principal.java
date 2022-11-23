@@ -1,7 +1,6 @@
 package io;
 
-import loteria.Loteria;
-import loteria.LoteriaView;
+import controllers.LoteriaController;
 import dominio.Participante;
 import jogos.*;
 import sorteadores.*;
@@ -18,14 +17,14 @@ public class Principal {
         Participante p1 = new Participante("Jonas", 1);
         Participante p2 = new Participante("Viana", 3);
 
-//        Sorteador sorteio = new SorteadorTendencioso(terceiroJogo.getQuantidadeNumeros(), terceiroJogo.getValorMaximo());
+            Sorteador sorteio = new SorteadorTendencioso(quartoJogo.getQuantidadeNumeros(), quartoJogo.getValorMaximo());
         Sorteador sorteioDois = new SorteadorPadrao(quartoJogo.getQuantidadeNumeros(), quartoJogo.getValorMaximo());
 //
-        Loteria loteria = new Loteria(quartoJogo,
-                                        sorteioDois,
+        LoteriaController loteriaController = new LoteriaController(quartoJogo,
+                                        sorteio,
                                         p1, p2);
 
-        LoteriaView loteriaView = new LoteriaView(loteria);
+        LoteriaView loteriaView = new LoteriaView(loteriaController);
 
         loteriaView.demonstraExecucao();
         loteriaView.demonstraResultados();

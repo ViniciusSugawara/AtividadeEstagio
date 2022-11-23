@@ -1,4 +1,4 @@
-package loteria;
+package dominio;
 
 public class Premio {
     private long premioTotal;
