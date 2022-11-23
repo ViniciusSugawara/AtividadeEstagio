@@ -1,17 +1,17 @@
 package jogos;
 
 public class SimpleJogoFactory {
-    public Jogo criaJogo(String nomeJogo){
-        Jogo jogo = null;
+    public JogoAbs criaJogo(String nomeJogo){
+        JogoAbs jogoAbs = null;
         if(nomeJogo.toLowerCase().equals("federal")){
-            jogo = new Federal();
+            jogoAbs = new Federal();
         } else if (nomeJogo.toLowerCase().equals("megasena")){
-            jogo = new MegaSena();
+            jogoAbs = new MegaSena();
         } else if (nomeJogo.toLowerCase().equals("federal simplificada")){
-            jogo = new FederalSimplificada();
+            jogoAbs = new FederalSimplificada();
         } else if (nomeJogo.toLowerCase().equals("megasena simplificada")){
-            jogo = new MegaSenaSimplificada();
+            jogoAbs = new MegaSenaSimplificada();
         }
-        return jogo;
+        return jogoAbs;
     }
 }

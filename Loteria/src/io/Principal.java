@@ -1,28 +1,32 @@
 package io;
 
+import controllers.LoteriaController;
 import dominio.Participante;
 import jogos.*;
 import sorteadores.*;
-import sorteadores.SorteadorTendencioso;
 
 public class Principal {
     public static void main(String[] args) {
         SimpleJogoFactory jogoFactory = new SimpleJogoFactory();
 
-        Jogo primeiroJogo = jogoFactory.criaJogo("federal");
-        Jogo segundoJogo = jogoFactory.criaJogo("megasena");
-        Jogo terceiroJogo = jogoFactory.criaJogo("federal simplificada");
-        Jogo quartoJogo = jogoFactory.criaJogo("megasena simplificada");
+        JogoAbs primeiroJogoAbs = jogoFactory.criaJogo("federal");
+        JogoAbs segundoJogoAbs = jogoFactory.criaJogo("megasena");
+        JogoAbs terceiroJogoAbs = jogoFactory.criaJogo("federal simplificada");
+        JogoAbs quartoJogoAbs = jogoFactory.criaJogo("megasena simplificada");
 
         Participante p1 = new Participante("Jonas", 1);
-        Participante p2 = new Participante("Viana", 1);
+        Participante p2 = new Participante("Viana", 3);
 
-        Sorteador sorteio = new SorteadorTendencioso(terceiroJogo.getQuantidadeNumeros(), terceiroJogo.getValorMaximo());
-        Sorteador sorteioDois = new SorteadorPadrao(quartoJogo.getQuantidadeNumeros(), quartoJogo.getValorMaximo());
-
-        Loteria loteria = new Loteria(quartoJogo,
+            ISorteador sorteio = new SorteadorTendencioso(quartoJogoAbs.getQuantidadeNumeros(), quartoJogoAbs.getValorMaximo());
+        ISorteador sorteioDois = new SorteadorPadrao(quartoJogoAbs.getQuantidadeNumeros(), quartoJogoAbs.getValorMaximo());
+//
+        LoteriaController loteriaController = new LoteriaController(quartoJogoAbs,
                                         sorteioDois,
                                         p1, p2);
-        loteria.execucao();
+
+        LoteriaView loteriaView = new LoteriaView(loteriaController);
+
+        loteriaView.demonstraExecucao();
+        loteriaView.demonstraResultados();
     }
 }
